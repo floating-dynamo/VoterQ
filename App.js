@@ -11,13 +11,9 @@ export default function App() {
 	//Keeping the Login state
 	const [loginState, setLoginState] = useState(false);
 	//Creating context
-	export const UserContext = React.createContext();
+	// export const UserContext = React.createContext();
 
-	return (
-		<UserContext.Provider value={loginState}>
-			<Navigator />
-		</UserContext.Provider>
-	);
+	return <Navigator />;
 	//<LoginScreen />;
 	// <HomeScreen />
 	// <QueueScreen />

@@ -46,7 +46,7 @@ export default function HomeScreen({ navigation }) {
 				</Text>
 			</TouchableOpacity>
 			<View style={styles.logotitle}>
-				<Text style={styles.title}>Voter Q</Text>
+				<Text style={styles.title}>Voter {"\n"} Q</Text>
 				<Text style={styles.subtitle}>
 					Check the Queue at your Polling Booth
 				</Text>
@@ -81,11 +81,12 @@ const styles = StyleSheet.create({
 	title: {
 		textAlign: "center",
 		fontSize: 48,
-		margin: 40,
+		margin: 20,
 		color: "#fff",
 		fontWeight: "900",
 		fontFamily: "Poppins_800ExtraBold",
 		paddingHorizontal: 50,
+		textAlign: "center",
 	},
 	subtitle: {
 		textAlign: "center",

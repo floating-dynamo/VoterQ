@@ -36,9 +36,34 @@ export default function App({ navigation }) {
 
 	return (
 		<View style={styles.container}>
-			<View>
-				<Text>Your Assembly Constituency is </Text>
-				<Text>Your Polling Booth is </Text>
+			<View style={{ marginBottom: 55, flex: 0.5 }}>
+				<Text
+					style={{
+						textAlign: "center",
+						fontFamily: "Poppins_500Medium",
+						fontSize: 20,
+						borderBottomWidth: 2,
+						borderBottomColor: "#5e17eb",
+						marginBottom: 10,
+					}}
+				>
+					Your Assembly Constituency is
+					<Text style={{ fontFamily: "Poppins_800ExtraBold" }}>
+						{" Mandrem"}
+					</Text>
+				</Text>
+				<Text
+					style={{
+						textAlign: "center",
+						fontFamily: "Poppins_500Medium",
+						fontSize: 20,
+					}}
+				>
+					Your Polling Booth is
+					<Text style={{ fontFamily: "Poppins_800ExtraBold" }}>
+						{" Government School of Mandrem"}
+					</Text>
+				</Text>
 			</View>
 			<View style={styles.inputbox}>
 				<Text style={styles.inputlabel}>
@@ -65,7 +90,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		alignItems: "center",
 		justifyContent: "center",
-		padding: 60,
+		padding: 35,
 	},
 	btnstyle: {
 		backgroundColor: "#5e17eb",
@@ -96,7 +121,7 @@ const styles = StyleSheet.create({
 	},
 	inputlabel: {
 		fontFamily: "Poppins_700Bold",
-		fontSize: 18,
+		fontSize: 20,
 		textAlign: "center",
 	},
 	input: {
