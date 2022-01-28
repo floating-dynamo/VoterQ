@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, View, Button, Image } from "react-native";
+import CheckConstiScreen from "./screens/CheckConstiScreen";
+import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./screens/LoginScreen";
+import QueueScreen from "./screens/QueueScreen";
+import UpdateQueueScreen from "./screens/UpdateQueueScreen";
+import Navigator from "./routes/userHomeStack";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+	//Keeping the Login state
+	const [loginState, setLoginState] = useState(false);
+	//Creating context
+	export const UserContext = React.createContext();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+	return (
+		<UserContext.Provider value={loginState}>
+			<Navigator />
+		</UserContext.Provider>
+	);
+	//<LoginScreen />;
+	// <HomeScreen />
+	// <QueueScreen />
+	// <CheckConstiScreen />
+	// <UpdateQueueScreen />
+}
