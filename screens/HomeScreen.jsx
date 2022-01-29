@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { useState } from "react";
@@ -8,10 +8,11 @@ import {
 	Poppins_400Regular,
 	Poppins_800ExtraBold,
 } from "@expo-google-fonts/poppins";
+import { LogContext } from "../App";
 
 export default function HomeScreen({ navigation }) {
 	//Check for login state
-	const [loginState, setLoginState] = useState(true);
+	const { logstatus, setLogstatus } = useContext(LogContext);
 	let [fontsLoaded, error] = useFonts({
 		Poppins_700Bold,
 		Poppins_400Regular,
@@ -26,9 +27,12 @@ export default function HomeScreen({ navigation }) {
 		navigation.push("CheckConst");
 	}
 
-	//Used to navigate from Home to Check Login Screen(also sending the login state)
-	function goToCheckLogin() {
-		navigation.navigate("LoginCheck", { login: loginState });
+	//Used to navigate from Home to Login Screen
+	function goToLogin() {
+		navigation.push("Login");
+	}
+	function goToUpdate() {
+		navigation.push("UpdateSc");
 	}
 
 	return (
@@ -40,11 +44,15 @@ export default function HomeScreen({ navigation }) {
 					source={require("../assets/goavotes.jpg")}
 				/>
 			</View>
-			<TouchableOpacity onPress={goToCheckLogin} style={styles.loginbtnstyle}>
-				<Text style={styles.loginbtntext}>
-					{loginState ? "Update" : "Login"}
-				</Text>
-			</TouchableOpacity>
+			{logstatus ? (
+				<TouchableOpacity onPress={goToUpdate} style={styles.loginbtnstyle}>
+					<Text style={styles.loginbtntext}>Update </Text>
+				</TouchableOpacity>
+			) : (
+				<TouchableOpacity onPress={goToLogin} style={styles.loginbtnstyle}>
+					<Text style={styles.loginbtntext}>Login </Text>
+				</TouchableOpacity>
+			)}
 			<View style={styles.logotitle}>
 				<Text style={styles.title}>Voter {"\n"} Q</Text>
 				<Text style={styles.subtitle}>
@@ -86,7 +94,6 @@ const styles = StyleSheet.create({
 		fontWeight: "900",
 		fontFamily: "Poppins_800ExtraBold",
 		paddingHorizontal: 50,
-		textAlign: "center",
 	},
 	subtitle: {
 		textAlign: "center",

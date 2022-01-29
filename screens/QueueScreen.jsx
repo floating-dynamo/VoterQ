@@ -13,6 +13,7 @@ export default function QueueScreen() {
 	const [latitude, setLatitude] = useState(15.666346);
 	const [longitude, setLongitude] = useState(73.795632);
 
+	const [pollTime, setPollTime] = useState("a");
 	const [numOfPpl, setNumOfPpl] = useState(25);
 	let [fontsLoaded, error] = useFonts({
 		Poppins_700Bold,

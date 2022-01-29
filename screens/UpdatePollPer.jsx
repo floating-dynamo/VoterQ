@@ -16,6 +16,7 @@ import {
 import Boothcom from "../components/Boothcom";
 import Accom from "../components/Accom";
 import { TextInput } from "react-native-gesture-handler";
+import { Dropdown } from "react-native-element-dropdown";
 
 export default function App({ navigation }) {
 	const [ac, setAc] = useState(1);
@@ -23,6 +24,25 @@ export default function App({ navigation }) {
 	const [boothnum, setBoothnum] = useState(1);
 
 	const [numOfPpl, setNumOfPpl] = useState(0);
+	const [pollTime, setPollTime] = useState("9:00 am");
+	//get the current time
+	useEffect(() => {
+		var d = new Date();
+		pollt = d.getHours();
+		pollt += 1;
+		if (pollt >= 9 && pollt < 11) {
+			setPollTime("9:00 am");
+		}
+		if (pollt >= 11 && pollt < 13) {
+			setPollTime("11:00 am");
+		}
+		if (pollt >= 15 && pollt < 17) {
+			setPollTime("3:00 pm");
+		}
+		if (pollt >= 17) {
+			setPollTime("5:00 pm");
+		}
+	}, []);
 
 	let [fontsLoaded, error] = useFonts({
 		Poppins_700Bold,
@@ -66,7 +86,8 @@ export default function App({ navigation }) {
 			</View>
 			<View style={styles.inputbox}>
 				<Text style={styles.inputlabel}>
-					Enter number of people currently in the Queue
+					Enter number of votes as of{" "}
+					<Text style={{ fontFamily: "Poppins_700Bold" }}>{pollTime}</Text>
 				</Text>
 				<TextInput
 					onChange={(e) => {

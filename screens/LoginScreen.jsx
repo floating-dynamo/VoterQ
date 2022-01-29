@@ -5,6 +5,7 @@ import {
 	TextInput,
 	Text,
 	StatusBar,
+	AsyncStorage,
 } from "react-native";
 import React, { useState } from "react";
 import {
@@ -31,9 +32,36 @@ const LoginScreen = ({ navigation, props }) => {
 		return null;
 	}
 
-	function handleLogin() {
-		setLoginState(props.isLoggedIn);
-	}
+	const handleLoginSubmit = async () => {
+		/*const url='http://127.0.0.1:8000/myq/api/auth/login/';
+		fetch(url, {
+		   method: 'POST',  headers: {       'Content-Type': 'application/json'    }, body: JSON.stringify({'acnum': ac, 'password' : password }) })
+			  useEffect(() => {
+		fetch('https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json')
+		  .then((response) => response.json())
+		  .then((json) => setData(json)
+		  
+		  
+		  json.token)
+	
+	
+		  'token : "adjdsfkjfbjfbjfbv" , "userid": 2
+		  .catch((error) => console.error(error))
+		  .finally(() => setLoading(false));*/
+		// token and it will contain user id
+		//useupd
+		const token = "adjdsfkjfbjfbjfbv";
+
+		await AsyncStorage.setItem("token", token);
+		// await AsyncStorage.setItem('userid',);
+		// await AsyncStorage.setItem('pb',pb);
+		// pb =[1,4,5,6]
+		setLogstatus(true);
+		navigation.push("Home");
+		//togglestatus
+		//  console.log(logstatus)
+		//	navigation.push("Home");
+	};
 
 	return (
 		<View style={styles.loginstyle}>
@@ -67,7 +95,7 @@ const LoginScreen = ({ navigation, props }) => {
 					disabled={loginId === "" || password === ""}
 					style={styles.btnstyle}
 				>
-					<Text onPress={handleLogin} style={styles.btntextstyle}>
+					<Text onPress={handleLoginSubmit} style={styles.btntextstyle}>
 						Login
 					</Text>
 				</TouchableOpacity>

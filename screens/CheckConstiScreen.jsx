@@ -15,11 +15,14 @@ import {
 } from "@expo-google-fonts/poppins";
 import Boothcom from "../components/Boothcom";
 import Accom from "../components/Accom";
+import QueueScreen from "./QueueScreen";
 
 export default function CheckConstiScreen({ navigation }) {
 	const [ac, setAc] = useState(1);
 	const [counter, setCounter] = useState(1);
 	const [boothnum, setBoothnum] = useState(1);
+
+	const [isLoading, setIsLoading] = useState(true);
 
 	let [fontsLoaded, error] = useFonts({
 		Poppins_700Bold,
@@ -31,26 +34,52 @@ export default function CheckConstiScreen({ navigation }) {
 		return null;
 	}
 
+	const handleSubmit = async (e) => {
+		/*const url='http://127.0.0.1:8000/myq/api/auth/login/';
+		fetch(url, {
+		   method: 'POST',  headers: {       'Content-Type': 'application/json'    }, body: JSON.stringify({'acnum': ac, 'password' : password }) })
+			  useEffect(() => {
+		fetch('https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json')
+		  .then((response) => response.json())
+		  .then((json) => setData(json))
+		  .catch((error) => console.error(error))
+		  .finally(() => setLoading(false));*/
+		// setNumOfPpl(10);
+		// setLatitude(15.666346);
+		// setLongitude(73.795632);
+		//  timestamp  polling percentage and polloing percentage variable
+		setIsLoading(false);
+		// setPollper();
+	};
+
 	return (
-		<View style={styles.container}>
-			<View>
-				<Text style={styles.actextstyle}>Select Assembly Constituency</Text>
-				<Accom setAc={setAc} />
-			</View>
-			{/* <Text> AC chosen is {ac} </Text> */}
-			<View>
-				<Text style={styles.pbtextstyle}>Select Polling Booth</Text>
-				<Boothcom ac={ac} setBoothnum={setBoothnum} />
-			</View>
-			<TouchableOpacity
-				onPress={() => {
-					navigation.push("Queue");
-				}}
-				style={styles.btnstyle}
-			>
-				<Text style={styles.btntextstyle}>Submit</Text>
-			</TouchableOpacity>
-		</View>
+		<>
+			{isLoading ? (
+				<View style={styles.container}>
+					<View>
+						<Text style={styles.actextstyle}>Select Assembly Constituency</Text>
+						<Accom setAc={setAc} />
+					</View>
+					{/* <Text> AC chosen is {ac} </Text> */}
+					<View>
+						<Text style={styles.pbtextstyle}>Select Polling Booth</Text>
+						<Boothcom ac={ac} setBoothnum={setBoothnum} />
+					</View>
+					<TouchableOpacity
+						onPress={() => {
+							navigation.push("Queue");
+						}}
+						style={styles.btnstyle}
+					>
+						<Text onPress={handleSubmit} style={styles.btntextstyle}>
+							Submit
+						</Text>
+					</TouchableOpacity>
+				</View>
+			) : (
+				<QueueScreen />
+			)}
+		</>
 	);
 }
 

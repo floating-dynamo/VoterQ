@@ -13,13 +13,16 @@ export default function UpdateScreen({ navigation }) {
 	function goToupdQ() {
 		navigation.navigate("UpdateQ");
 	}
+	function goToupdP() {
+		navigation.navigate("UpdateP");
+	}
 
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity onPress={goToupdQ} style={styles.btnstyle}>
 				<Text style={styles.btntextstyle}>UPDATE QUEUE</Text>
 			</TouchableOpacity>
-			<TouchableOpacity style={styles.btnstyle1}>
+			<TouchableOpacity onPress={goToupdP} style={styles.btnstyle1}>
 				<Text style={styles.btntextstyle}>UPDATE POLL</Text>
 			</TouchableOpacity>
 		</View>

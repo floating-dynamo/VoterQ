@@ -6,14 +6,11 @@ import LoginScreen from "../screens/LoginScreen";
 import UpdateQueueScreen from "../screens/UpdateQueueScreen";
 import QueueScreen from "../screens/QueueScreen";
 import UpdateScreen from "../screens/UpdateScreen";
-import CheckLogin from "../screens/CheckLogin";
+import UpdatePollPer from "../screens/UpdatePollPer";
 
 const screens = {
 	Home: {
 		screen: HomeScreen,
-	},
-	LoginCheck: {
-		screen: CheckLogin,
 	},
 	Login: {
 		screen: LoginScreen,
@@ -26,6 +23,9 @@ const screens = {
 	},
 	UpdateQ: {
 		screen: UpdateQueueScreen,
+	},
+	UpdateP: {
+		screen: UpdatePollPer,
 	},
 	Queue: {
 		screen: QueueScreen,
