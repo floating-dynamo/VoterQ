@@ -1,23 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { useState } from "react";
+
+//import {useUser} from "../components/userContext";
 import {
 	useFonts,
 	Poppins_700Bold,
 	Poppins_400Regular,
 	Poppins_800ExtraBold,
 } from "@expo-google-fonts/poppins";
+//import get_logged_status from "../components/func"
+
+import { SecureStore } from "expo";
 import { LogContext } from "../App";
 
 export default function HomeScreen({ navigation }) {
-	//Check for login state
-	const { logstatus, setLogstatus } = useContext(LogContext);
+	const { data, setData } = useContext(LogContext);
+
 	let [fontsLoaded, error] = useFonts({
 		Poppins_700Bold,
 		Poppins_400Regular,
 		Poppins_800ExtraBold,
 	});
+
+	// output: sahdkfjaskdflas$%^&
 	if (!fontsLoaded) {
 		return null;
 	}
@@ -32,7 +38,7 @@ export default function HomeScreen({ navigation }) {
 		navigation.push("Login");
 	}
 	function goToUpdate() {
-		navigation.push("UpdateSc");
+		navigation.push("Update");
 	}
 
 	return (
@@ -44,23 +50,25 @@ export default function HomeScreen({ navigation }) {
 					source={require("../assets/goavotes.jpg")}
 				/>
 			</View>
-			{logstatus ? (
+
+			{Object.keys(data).length != 0 ? (
 				<TouchableOpacity onPress={goToUpdate} style={styles.loginbtnstyle}>
-					<Text style={styles.loginbtntext}>Update </Text>
+					<Text style={styles.loginbtntext}>UPDATE </Text>
 				</TouchableOpacity>
 			) : (
 				<TouchableOpacity onPress={goToLogin} style={styles.loginbtnstyle}>
-					<Text style={styles.loginbtntext}>Login </Text>
+					<Text style={styles.loginbtntext}>LOGIN </Text>
 				</TouchableOpacity>
 			)}
+
 			<View style={styles.logotitle}>
-				<Text style={styles.title}>Voter {"\n"} Q</Text>
+				<Text style={styles.title}>Voter Q</Text>
 				<Text style={styles.subtitle}>
 					Check the Queue at your Polling Booth
 				</Text>
 			</View>
 			<TouchableOpacity onPress={goToConst} style={styles.btnstyle}>
-				<Text style={styles.btntext}>Next</Text>
+				<Text style={styles.btntext}>NEXT</Text>
 			</TouchableOpacity>
 		</View>
 	);

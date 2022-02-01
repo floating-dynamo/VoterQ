@@ -1,5 +1,8 @@
 import { Text, StyleSheet, View, Image, StatusBar } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import React, { useState } from "react";
+//import MapView, { Marker } from "react-native-maps";
+import { Constants, MapView } from "expo";
+//import MapView from 'react-native-maps';
 import {
 	useFonts,
 	Poppins_700Bold,
@@ -7,14 +10,23 @@ import {
 	Poppins_800ExtraBold,
 	Poppins_500Medium,
 } from "@expo-google-fonts/poppins";
-import { useState } from "react";
+import { CONSTITUENCY, POLLTIME, BOOTHS } from "../components/defs";
 
-export default function QueueScreen() {
-	const [latitude, setLatitude] = useState(15.666346);
-	const [longitude, setLongitude] = useState(73.795632);
+export default function QueueScreen({
+	numOfPpl,
+	latitude,
+	longitude,
+	encodedtime,
+	boothaddr,
+	lastupdated,
+	pollper,
+	ac,
+	boothnum,
+}) {
+	//let pollper = votespolled/maxvotes
+	//DecimalFormat  df = new DecimalFormat("#.00");
+	// String pf = df.format(pollper);
 
-	const [pollTime, setPollTime] = useState("a");
-	const [numOfPpl, setNumOfPpl] = useState(25);
 	let [fontsLoaded, error] = useFonts({
 		Poppins_700Bold,
 		Poppins_400Regular,
@@ -32,13 +44,16 @@ export default function QueueScreen() {
 				There are {numOfPpl} people in the Queue
 			</Text>
 
-			<Text style={styles.updatetextstyle}>Last Updated 11:10 pm</Text>
+			<Text style={styles.updatetextstyle}> Last Updated {lastupdated} </Text>
 			<View style={styles.polling}>
 				<Text style={styles.pollingtext}>
 					Polling Percentage is{" "}
-					<Text style={{ fontFamily: "Poppins_800ExtraBold" }}>20%</Text>
+					<Text style={{ fontFamily: "Poppins_800ExtraBold" }}>{pollper}</Text>
 				</Text>
-				<Text style={styles.pollingpercent}>till 9:00am</Text>
+				<Text style={styles.pollingpercent}>
+					{" "}
+					{POLLTIME[encodedtime].label}{" "}
+				</Text>
 			</View>
 			{numOfPpl > 0 && numOfPpl <= 10 && (
 				<Image
@@ -61,25 +76,7 @@ export default function QueueScreen() {
 
 			<View>
 				<Text style={styles.maptitle}>Your Polling Booth</Text>
-				<Text style={styles.addressstyle}>
-					Government Primary School, Tiracol
-				</Text>
-				<MapView
-					style={styles.map}
-					region={{
-						latitude: latitude,
-						longitude: longitude,
-						latitudeDelta: 0.003,
-						longitudeDelta: 0.0002,
-					}}
-				>
-					<Marker
-						coordinate={{ latitude: latitude, longitude: longitude }}
-						image={require("../assets/marker-red.png")}
-						title="Government Primary School, Tiracol"
-						style={styles.marker}
-					/>
-				</MapView>
+				<Text style={styles.addressstyle}>{boothaddr}</Text>
 			</View>
 		</View>
 	);

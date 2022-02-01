@@ -13,26 +13,38 @@ import { AsyncStorage } from "react-native";
 export const LogContext = React.createContext();
 
 export default function App() {
-	//Keeping the Login state
 	useEffect(() => {
 		async function fetchAccounts() {
-			const credentials = await AsyncStorage.getItem("token1");
+			const credentials = JSON.parse(await AsyncStorage.getItem("data"));
 			//   console.log('value of credentials: ', credentials);
 
 			if (credentials !== null && credentials !== undefined) {
-				setLogstatus(true);
+				setData(credentials);
 			} else {
-				setLogstatus(false);
+				setData({});
 			}
 		}
 
 		fetchAccounts();
 	}, []);
 
-	const [logstatus, setLogstatus] = useState(false);
+	/*const read = async () => {
+   
+      const credentials = await AsyncStorage.getItem('token');
+   //   console.log('value of credentials: ', credentials);
+
+      if (credentials !== null && credentials !==undefined) {
+        return true
+      }
+      else 
+      {
+        return false
+        }
+    } */
+	const [data, setData] = useState({});
 
 	return (
-		<LogContext.Provider value={{ logstatus, setLogstatus }}>
+		<LogContext.Provider value={{ data, setData }}>
 			<Navigator />
 		</LogContext.Provider>
 	);

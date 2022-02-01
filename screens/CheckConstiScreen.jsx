@@ -15,13 +15,20 @@ import {
 } from "@expo-google-fonts/poppins";
 import Boothcom from "../components/Boothcom";
 import Accom from "../components/Accom";
-import QueueScreen from "./QueueScreen";
-
-export default function CheckConstiScreen({ navigation }) {
+import QueueScreen from "./QueueScreen.js";
+import { SERVER } from "../components/defs";
+export default function CheckConstiScreen() {
 	const [ac, setAc] = useState(1);
 	const [counter, setCounter] = useState(1);
 	const [boothnum, setBoothnum] = useState(1);
+	const [latitude, setLatitude] = useState();
+	const [longitude, setLongitude] = useState();
+	const [boothaddr, setBoothaddr] = useState("");
+	const [lastupdated, setLastupdated] = useState();
+	const [pollper, setPollper] = useState();
+	const [encodedtime, setEncodedtime] = useState(0);
 
+	const [numOfPpl, setNumOfPpl] = useState(21);
 	const [isLoading, setIsLoading] = useState(true);
 
 	let [fontsLoaded, error] = useFonts({
@@ -35,51 +42,67 @@ export default function CheckConstiScreen({ navigation }) {
 	}
 
 	const handleSubmit = async (e) => {
-		/*const url='http://127.0.0.1:8000/myq/api/auth/login/';
+		const url = SERVER + "myq/getboothdet/" + ac + "/" + boothnum;
 		fetch(url, {
-		   method: 'POST',  headers: {       'Content-Type': 'application/json'    }, body: JSON.stringify({'acnum': ac, 'password' : password }) })
-			  useEffect(() => {
-		fetch('https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json')
-		  .then((response) => response.json())
-		  .then((json) => setData(json))
-		  .catch((error) => console.error(error))
-		  .finally(() => setLoading(false));*/
-		// setNumOfPpl(10);
-		// setLatitude(15.666346);
-		// setLongitude(73.795632);
-		//  timestamp  polling percentage and polloing percentage variable
-		setIsLoading(false);
-		// setPollper();
+			method: "GET",
+			headers: { "Content-Type": "application/json" },
+			//body: JSON.stringify({'acnum': ac, 'password' : password })
+		})
+			.then(function (response) {
+				return response.json();
+			})
+			.then((data1) => {
+				setNumOfPpl(data1.num_people);
+				setBoothaddr(data1.booth_address);
+
+				setLatitude(data1.lat);
+				setLongitude(data1.longt);
+				const dt_time = data1.updated_at.split("T");
+				const dt1 = dt_time[1].split(".");
+
+				//let time=dt_time[1].split('.')
+				setLastupdated(dt1[0]);
+				setPollper((data1.votes_polled / data1.max_votes) * 100);
+				setEncodedtime(parseInt(data1.encoded_time_votes_polled));
+				//  timestamp  polling percentage and polloing percentage variable
+				setIsLoading(false);
+				//s//etPollper()
+			});
 	};
+	//.catch((error) => console.error(error))
+	// .finally(() => setLoading(false));*/
 
 	return (
-		<>
+		<View style={{ flex: 1, padding: 1 }}>
 			{isLoading ? (
 				<View style={styles.container}>
 					<View>
 						<Text style={styles.actextstyle}>Select Assembly Constituency</Text>
 						<Accom setAc={setAc} />
 					</View>
-					{/* <Text> AC chosen is {ac} </Text> */}
+
 					<View>
 						<Text style={styles.pbtextstyle}>Select Polling Booth</Text>
 						<Boothcom ac={ac} setBoothnum={setBoothnum} />
 					</View>
-					<TouchableOpacity
-						onPress={() => {
-							navigation.push("Queue");
-						}}
-						style={styles.btnstyle}
-					>
-						<Text onPress={handleSubmit} style={styles.btntextstyle}>
-							Submit
-						</Text>
+					<TouchableOpacity onPress={handleSubmit} style={styles.btnstyle}>
+						<Text style={styles.btntextstyle}>Submit</Text>
 					</TouchableOpacity>
 				</View>
 			) : (
-				<QueueScreen />
+				<QueueScreen
+					numOfPpl={numOfPpl}
+					latitude={latitude}
+					longitude={longitude}
+					encodedtime={encodedtime}
+					boothaddr={boothaddr}
+					lastupdated={lastupdated}
+					pollper={pollper}
+					ac={ac}
+					boothnum={boothnum}
+				/>
 			)}
-		</>
+		</View>
 	);
 }
 

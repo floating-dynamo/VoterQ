@@ -1,11 +1,12 @@
 import {
 	View,
 	Text,
+	TextInput,
 	StyleSheet,
 	StatusBar,
 	TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
 	useFonts,
 	Poppins_700Bold,
@@ -13,16 +14,27 @@ import {
 	Poppins_800ExtraBold,
 	Poppins_500Medium,
 } from "@expo-google-fonts/poppins";
-import Boothcom from "../components/Boothcom";
+import Boothcomnew from "../components/Boothcomnew";
+import Alert from "react-native";
 import Accom from "../components/Accom";
-import { TextInput } from "react-native-gesture-handler";
+import QueueScreen from "./QueueScreen.js";
+import { LogContext } from "../App";
+import { BOOTHS } from "../components/defs";
+import { SERVER } from "../components/defs";
+import { CONSTITUENCY } from "../components/defs";
 
-export default function App({ navigation }) {
-	const [ac, setAc] = useState(1);
-	const [counter, setCounter] = useState(1);
-	const [boothnum, setBoothnum] = useState(1);
+export default function UpdateQueueScreen({ navigation }) {
+	const [boothnum, setBoothnum] = useState();
+	const { data, setData } = useContext(LogContext);
 
+	let ac = data.acnum;
+
+	let pblist = [];
+	for (let i = 0; i < data.poll_booth_list.length; i++) {
+		pblist.push(BOOTHS[ac - 1][data.poll_booth_list[i] - 1]);
+	}
 	const [numOfPpl, setNumOfPpl] = useState(0);
+	//const [isLoading,setIsLoading] =useState(true);
 
 	let [fontsLoaded, error] = useFonts({
 		Poppins_700Bold,
@@ -34,6 +46,49 @@ export default function App({ navigation }) {
 		return null;
 	}
 
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		//if(loginId!==null)
+		//  {
+		const url = SERVER + "myq/api/auth/qup/";
+		const Token = "Token " + data.token;
+		// console.log(username)
+		// console.log(passwword)
+		//console.log(url)
+		fetch(url, {
+			method: "POST",
+			body: JSON.stringify({ acnum: ac, boothnum: boothnum, count: numOfPpl }),
+			headers: { "Content-Type": "application/json", Authorization: Token },
+		})
+			.then(function (response) {
+				return response.json();
+			})
+			.then(async (data1) => {
+				if (data1.status_code == 200) {
+					//await AsyncStorage.setItem("data", JSON.stringify(data));
+
+					//const st={'logged' : true };
+					//await AsyncStorage.setItem("logged", JSON.stringify(st));
+					// setData(data);
+					//    setHasError(false);
+					//    setErrorMessage("");
+
+					navigation.push("Home");
+					// setLogged(true);
+					//  window.location.reload();
+					// return data
+				}
+				/* else   if (data.status_code===500)
+                  {
+           //       setHasError(true);
+//   setErrorMessage(data.error.error[0]);
+                  e.target.reset();
+                  //setUserName('');
+                }
+                else*/
+				//
+			});
+	};
 	return (
 		<View style={styles.container}>
 			<View style={{ marginBottom: 55, flex: 0.7 }}>
@@ -48,9 +103,9 @@ export default function App({ navigation }) {
 						paddingBottom: 10,
 					}}
 				>
-					Your Assembly Constituency is
+					Your Assembly Constituency is {"\n"}
 					<Text style={{ fontFamily: "Poppins_800ExtraBold" }}>
-						{" Mandrem"}
+						{CONSTITUENCY[ac - 1].label}
 					</Text>
 				</Text>
 				<Text
@@ -61,7 +116,7 @@ export default function App({ navigation }) {
 					}}
 				>
 					Your Polling Booth is {"\n"}
-					<Boothcom ac={1} setBoothnum={setBoothnum} />
+					<Boothcomnew pblist={pblist} setBoothnum={setBoothnum} />
 				</Text>
 			</View>
 			<View style={styles.inputbox}>
@@ -69,14 +124,14 @@ export default function App({ navigation }) {
 					Enter number of people currently in the Queue
 				</Text>
 				<TextInput
-					onChange={(e) => {
-						setNumOfPpl(e.target.value);
+					onChangeText={(e) => {
+						setNumOfPpl(e);
 					}}
 					placeholder="Enter the number"
 					style={styles.input}
 				/>
 			</View>
-			<TouchableOpacity style={styles.btnstyle}>
+			<TouchableOpacity onPress={handleSubmit} style={styles.btnstyle}>
 				<Text style={styles.btntextstyle}>Submit</Text>
 			</TouchableOpacity>
 		</View>
@@ -110,7 +165,7 @@ const styles = StyleSheet.create({
 	},
 	inputlabel: {
 		fontFamily: "Poppins_500Medium",
-		fontSize: 22,
+		fontSize: 16,
 		textAlign: "center",
 	},
 	input: {

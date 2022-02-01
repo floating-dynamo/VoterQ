@@ -5,16 +5,22 @@ import {
 	StatusBar,
 	TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import CheckConstiScreen from "./CheckConstiScreen";
-import LoginScreen from "./LoginScreen";
-
+import { LogContext } from "../App";
+import { AsyncStorage } from "react-native";
 export default function UpdateScreen({ navigation }) {
+	const { data, setData } = useContext(LogContext);
 	function goToupdQ() {
 		navigation.navigate("UpdateQ");
 	}
 	function goToupdP() {
 		navigation.navigate("UpdateP");
+	}
+	async function goToLogout() {
+		await AsyncStorage.removeItem("data");
+		setData({});
+		navigation.navigate("Home");
 	}
 
 	return (
@@ -23,7 +29,10 @@ export default function UpdateScreen({ navigation }) {
 				<Text style={styles.btntextstyle}>UPDATE QUEUE</Text>
 			</TouchableOpacity>
 			<TouchableOpacity onPress={goToupdP} style={styles.btnstyle1}>
-				<Text style={styles.btntextstyle}>UPDATE POLL</Text>
+				<Text style={styles.btntextstyle}>UPDATE VOTES POLLED</Text>
+			</TouchableOpacity>
+			<TouchableOpacity onPress={goToLogout} style={styles.btnstyle1}>
+				<Text style={styles.btntextstyle}>LOGOUT</Text>
 			</TouchableOpacity>
 		</View>
 	);
@@ -38,23 +47,27 @@ const styles = StyleSheet.create({
 	},
 	btnstyle: {
 		backgroundColor: "#fff",
-		paddingHorizontal: 30,
-		paddingVertical: 20,
+		paddingRight: 30,
+		paddingLeft: 30,
+		paddingTop: 20,
+		paddingBottom: 20,
 		borderRadius: 5,
 
-		bottom: 70,
+		bottom: 60,
 	},
 	btnstyle1: {
 		backgroundColor: "#fff",
-		paddingHorizontal: 30,
-		paddingVertical: 20,
+		paddingRight: 30,
+		paddingLeft: 30,
+		paddingTop: 20,
+		paddingBottom: 20,
 		borderRadius: 5,
 
-		bottom: 20,
+		bottom: 40,
 	},
 	btntextstyle: {
 		textAlign: "center",
-		fontSize: 24,
+		fontSize: 23,
 		color: "#5e17eb",
 		fontFamily: "Poppins_700Bold",
 	},

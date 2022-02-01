@@ -3,12 +3,17 @@ import { createAppContainer } from "react-navigation";
 import HomeScreen from "../screens/HomeScreen";
 import CheckConstiScreen from "../screens/CheckConstiScreen";
 import LoginScreen from "../screens/LoginScreen";
-import UpdateQueueScreen from "../screens/UpdateQueueScreen";
-import QueueScreen from "../screens/QueueScreen";
 import UpdateScreen from "../screens/UpdateScreen";
+import UpdateQueueScreen from "../screens/UpdateQueueScreen";
+import FlashScreen from "../screens/FlashScreen";
+import { useState } from "react";
 import UpdatePollPer from "../screens/UpdatePollPer";
 
 const screens = {
+	Flash: {
+		screen: FlashScreen,
+	},
+
 	Home: {
 		screen: HomeScreen,
 	},
@@ -18,7 +23,7 @@ const screens = {
 	CheckConst: {
 		screen: CheckConstiScreen,
 	},
-	UpdateSc: {
+	Update: {
 		screen: UpdateScreen,
 	},
 	UpdateQ: {
@@ -26,9 +31,6 @@ const screens = {
 	},
 	UpdateP: {
 		screen: UpdatePollPer,
-	},
-	Queue: {
-		screen: QueueScreen,
 	},
 };
 
