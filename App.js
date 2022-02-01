@@ -9,6 +9,7 @@ import Navigator from "./routes/userHomeStack";
 import { SecureStore } from "expo";
 import { UserProvider } from "./components/userContext";
 import { AsyncStorage } from "react-native";
+import UpdateScreen from "./screens/UpdateScreen";
 
 export const LogContext = React.createContext();
 
@@ -46,6 +47,7 @@ export default function App() {
 	return (
 		<LogContext.Provider value={{ data, setData }}>
 			<Navigator />
+			{/* <UpdateScreen /> */}
 		</LogContext.Provider>
 	);
 }

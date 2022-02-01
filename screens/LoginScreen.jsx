@@ -145,7 +145,7 @@ export default function LoginScreen({ navigation }) {
 					/>
 				</View>
 				<TouchableOpacity onPress={handleLoginSubmit} style={styles.btnstyle}>
-					<Text style={styles.btntextstyle}>Login</Text>
+					<Text style={styles.btntextstyle}>LOGIN</Text>
 				</TouchableOpacity>
 			</View>
 		</View>

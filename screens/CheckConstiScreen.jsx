@@ -15,7 +15,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import Boothcom from "../components/Boothcom";
 import Accom from "../components/Accom";
-import QueueScreen from "./QueueScreen.js";
+import QueueScreen from "./QueueScreen";
 import { SERVER } from "../components/defs";
 export default function CheckConstiScreen() {
 	const [ac, setAc] = useState(1);

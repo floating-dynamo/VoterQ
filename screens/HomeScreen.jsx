@@ -62,7 +62,7 @@ export default function HomeScreen({ navigation }) {
 			)}
 
 			<View style={styles.logotitle}>
-				<Text style={styles.title}>Voter Q</Text>
+				<Text style={styles.title}>Voter{"\n"}Q</Text>
 				<Text style={styles.subtitle}>
 					Check the Queue at your Polling Booth
 				</Text>
@@ -118,26 +118,26 @@ const styles = StyleSheet.create({
 	},
 	btnstyle: {
 		backgroundColor: "#fff",
-		paddingRight: 65,
-		paddingLeft: 65,
-		paddingTop: 20,
-		paddingBottom: 20,
+		paddingRight: 45,
+		paddingLeft: 45,
+		paddingTop: 15,
+		paddingBottom: 15,
 		borderRadius: 5,
 		position: "absolute",
 		bottom: 60,
 	},
 	btntext: {
 		color: "#5e17eb",
-		fontSize: 22,
+		fontSize: 29,
 		fontWeight: "900",
 		fontFamily: "Poppins_700Bold",
 	},
 	loginbtnstyle: {
-		backgroundColor: "#fff",
-		paddingRight: 35,
-		paddingLeft: 35,
-		paddingTop: 10,
-		paddingBottom: 10,
+		backgroundColor: "#71C562",
+		paddingRight: 15,
+		paddingLeft: 15,
+		paddingTop: 8,
+		paddingBottom: 8,
 		position: "absolute",
 		top: 35,
 		right: 25,
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 	},
 	loginbtntext: {
-		color: "#5e17eb",
-		fontSize: 20,
+		color: "#fff",
+		fontSize: 18,
 		fontWeight: "900",
 		fontFamily: "Poppins_700Bold",
 	},

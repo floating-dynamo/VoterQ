@@ -4,13 +4,33 @@ import {
 	StyleSheet,
 	StatusBar,
 	TouchableOpacity,
+	TouchableHighlight,
 } from "react-native";
 import React, { useContext } from "react";
 import CheckConstiScreen from "./CheckConstiScreen";
 import { LogContext } from "../App";
 import { AsyncStorage } from "react-native";
+import {
+	useFonts,
+	Poppins_700Bold,
+	Poppins_400Regular,
+	Poppins_800ExtraBold,
+} from "@expo-google-fonts/poppins";
+
 export default function UpdateScreen({ navigation }) {
 	const { data, setData } = useContext(LogContext);
+
+	let [fontsLoaded, error] = useFonts({
+		Poppins_700Bold,
+		Poppins_400Regular,
+		Poppins_800ExtraBold,
+	});
+
+	// output: sahdkfjaskdflas$%^&
+	if (!fontsLoaded) {
+		return null;
+	}
+
 	function goToupdQ() {
 		navigation.navigate("UpdateQ");
 	}
@@ -25,14 +45,16 @@ export default function UpdateScreen({ navigation }) {
 
 	return (
 		<View style={styles.container}>
+			<View style={styles.btnstyle2}>
+				<TouchableHighlight onPress={goToLogout}>
+					<Text style={styles.btntextstylelogout}>LOGOUT</Text>
+				</TouchableHighlight>
+			</View>
 			<TouchableOpacity onPress={goToupdQ} style={styles.btnstyle}>
 				<Text style={styles.btntextstyle}>UPDATE QUEUE</Text>
 			</TouchableOpacity>
 			<TouchableOpacity onPress={goToupdP} style={styles.btnstyle1}>
 				<Text style={styles.btntextstyle}>UPDATE VOTES POLLED</Text>
-			</TouchableOpacity>
-			<TouchableOpacity onPress={goToLogout} style={styles.btnstyle1}>
-				<Text style={styles.btntextstyle}>LOGOUT</Text>
 			</TouchableOpacity>
 		</View>
 	);
@@ -63,12 +85,26 @@ const styles = StyleSheet.create({
 		paddingBottom: 20,
 		borderRadius: 5,
 
-		bottom: 40,
+		bottom: 10,
+	},
+	btnstyle2: {
+		backgroundColor: "#E40078",
+		paddingHorizontal: 15,
+		paddingVertical: 8,
+		borderRadius: 5,
+		top: "-29%",
+		right: "-29%",
 	},
 	btntextstyle: {
 		textAlign: "center",
 		fontSize: 23,
 		color: "#5e17eb",
+		fontFamily: "Poppins_700Bold",
+	},
+	btntextstylelogout: {
+		textAlign: "center",
+		fontSize: 18,
+		color: "#fff",
 		fontFamily: "Poppins_700Bold",
 	},
 });

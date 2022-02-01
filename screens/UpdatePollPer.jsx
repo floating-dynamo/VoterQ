@@ -16,7 +16,7 @@ import {
 import Boothcomnew from "../components/Boothcomnew";
 import Alert from "react-native";
 import Accom from "../components/Accom";
-import QueueScreen from "./QueueScreen.js";
+import QueueScreen from "./QueueScreen";
 import { LogContext } from "../App";
 import { BOOTHS } from "../components/defs";
 import { SERVER } from "../components/defs";
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
 		paddingLeft: 35,
 		paddingRight: 35,
 		borderRadius: 5,
+		bottom: -40,
 	},
 	btntextstyle: {
 		color: "#fff",
@@ -196,9 +197,10 @@ const styles = StyleSheet.create({
 	inputbox: {
 		alignItems: "center",
 		marginBottom: 15,
+		bottom: -40,
 	},
 	inputlabel: {
-		fontFamily: "Poppins_500Medium",
+		fontFamily: "Poppins_400Regular",
 		fontSize: 22,
 		textAlign: "center",
 	},
