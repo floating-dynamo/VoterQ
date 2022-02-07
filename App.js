@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Button, Image, Text } from "react-native";
+import {
+	StyleSheet,
+	View,
+	Button,
+	Image,
+	Text,
+	Alert,
+	BackHandler,
+} from "react-native";
 import CheckConstiScreen from "./screens/CheckConstiScreen";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";

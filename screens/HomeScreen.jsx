@@ -1,6 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import {
+	StyleSheet,
+	Text,
+	View,
+	TouchableOpacity,
+	Image,
+	BackHandler,
+	Alert,
+} from "react-native";
+// import { useFocusEffect } from "@react-navigation";
 
 //import {useUser} from "../components/userContext";
 import {
