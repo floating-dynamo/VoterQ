@@ -15,7 +15,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import Boothcom from "../components/Boothcom";
 import Accom from "../components/Accom";
-import QueueScreen from "./QueueScreen";
+import QueueScreen from "./QueueScreen.js";
 import { SERVER } from "../components/defs";
 export default function CheckConstiScreen() {
 	const [ac, setAc] = useState(1);
@@ -62,7 +62,9 @@ export default function CheckConstiScreen() {
 
 				//let time=dt_time[1].split('.')
 				setLastupdated(dt1[0]);
-				setPollper((data1.votes_polled / data1.max_votes) * 100);
+				setPollper(
+					parseFloat((data1.votes_polled / data1.max_votes) * 100).toFixed(2)
+				);
 				setEncodedtime(parseInt(data1.encoded_time_votes_polled));
 				//  timestamp  polling percentage and polloing percentage variable
 				setIsLoading(false);

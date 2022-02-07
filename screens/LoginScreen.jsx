@@ -145,7 +145,7 @@ export default function LoginScreen({ navigation }) {
 					/>
 				</View>
 				<TouchableOpacity onPress={handleLoginSubmit} style={styles.btnstyle}>
-					<Text style={styles.btntextstyle}>LOGIN</Text>
+					<Text style={styles.btntextstyle}>Login</Text>
 				</TouchableOpacity>
 			</View>
 		</View>
@@ -197,3 +197,5 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 	},
 });
+
+//export default LoginScreen;

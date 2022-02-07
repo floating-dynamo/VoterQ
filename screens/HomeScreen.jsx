@@ -1,15 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-	StyleSheet,
-	Text,
-	View,
-	TouchableOpacity,
-	Image,
-	BackHandler,
-	Alert,
-} from "react-native";
-// import { useFocusEffect } from "@react-navigation";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 //import {useUser} from "../components/userContext";
 import {
@@ -71,7 +62,7 @@ export default function HomeScreen({ navigation }) {
 			)}
 
 			<View style={styles.logotitle}>
-				<Text style={styles.title}>Voter{"\n"}Q</Text>
+				<Text style={styles.title}>Voter Q</Text>
 				<Text style={styles.subtitle}>
 					Check the Queue at your Polling Booth
 				</Text>
@@ -127,17 +118,17 @@ const styles = StyleSheet.create({
 	},
 	btnstyle: {
 		backgroundColor: "#fff",
-		paddingRight: 45,
-		paddingLeft: 45,
-		paddingTop: 15,
-		paddingBottom: 15,
+		paddingRight: 65,
+		paddingLeft: 65,
+		paddingTop: 20,
+		paddingBottom: 20,
 		borderRadius: 5,
 		position: "absolute",
 		bottom: 60,
 	},
 	btntext: {
 		color: "#5e17eb",
-		fontSize: 29,
+		fontSize: 22,
 		fontWeight: "900",
 		fontFamily: "Poppins_700Bold",
 	},

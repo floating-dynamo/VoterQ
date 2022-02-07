@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-	StyleSheet,
-	View,
-	Button,
-	Image,
-	Text,
-	Alert,
-	BackHandler,
-} from "react-native";
+import { StyleSheet, View, Button, Image, Text } from "react-native";
 import CheckConstiScreen from "./screens/CheckConstiScreen";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
@@ -17,7 +9,6 @@ import Navigator from "./routes/userHomeStack";
 import { SecureStore } from "expo";
 import { UserProvider } from "./components/userContext";
 import { AsyncStorage } from "react-native";
-import UpdateScreen from "./screens/UpdateScreen";
 
 export const LogContext = React.createContext();
 
@@ -55,7 +46,6 @@ export default function App() {
 	return (
 		<LogContext.Provider value={{ data, setData }}>
 			<Navigator />
-			{/* <UpdateScreen /> */}
 		</LogContext.Provider>
 	);
 }

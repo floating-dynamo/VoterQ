@@ -17,7 +17,7 @@ import {
 import Boothcomnew from "../components/Boothcomnew";
 import Alert from "react-native";
 import Accom from "../components/Accom";
-import QueueScreen from "./QueueScreen";
+import QueueScreen from "./QueueScreen.js";
 import { LogContext } from "../App";
 import { BOOTHS } from "../components/defs";
 import { SERVER } from "../components/defs";
@@ -73,7 +73,7 @@ export default function UpdateQueueScreen({ navigation }) {
 					//    setHasError(false);
 					//    setErrorMessage("");
 
-					navigation.push("Home");
+					navigation.navigate("Home");
 					// setLogged(true);
 					//  window.location.reload();
 					// return data
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
 	},
 	inputlabel: {
 		fontFamily: "Poppins_500Medium",
-		fontSize: 22,
+		fontSize: 16,
 		textAlign: "center",
 	},
 	input: {

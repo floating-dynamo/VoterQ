@@ -4,33 +4,14 @@ import {
 	StyleSheet,
 	StatusBar,
 	TouchableOpacity,
-	TouchableHighlight,
 } from "react-native";
 import React, { useContext } from "react";
 import CheckConstiScreen from "./CheckConstiScreen";
 import { LogContext } from "../App";
 import { AsyncStorage } from "react-native";
-import {
-	useFonts,
-	Poppins_700Bold,
-	Poppins_400Regular,
-	Poppins_800ExtraBold,
-} from "@expo-google-fonts/poppins";
-
+import { SERVER } from "../components/defs";
 export default function UpdateScreen({ navigation }) {
 	const { data, setData } = useContext(LogContext);
-
-	let [fontsLoaded, error] = useFonts({
-		Poppins_700Bold,
-		Poppins_400Regular,
-		Poppins_800ExtraBold,
-	});
-
-	// output: sahdkfjaskdflas$%^&
-	if (!fontsLoaded) {
-		return null;
-	}
-
 	function goToupdQ() {
 		navigation.navigate("UpdateQ");
 	}
@@ -38,6 +19,25 @@ export default function UpdateScreen({ navigation }) {
 		navigation.navigate("UpdateP");
 	}
 	async function goToLogout() {
+		const url = SERVER + "myq/api/auth/logout/";
+		const Token = "Token " + data.token;
+		// console.log(username)
+		// console.log(passwword)
+		//console.log(url)
+		fetch(url, {
+			method: "POST",
+
+			headers: { "Content-Type": "application/json", Authorization: Token },
+		}).then(function (response) {
+			console.log("response", response);
+			if (!response.ok) {
+				throw Error();
+			}
+			//sessionStorage.setItem('token', '')
+			//sessionStorage.clear();
+
+			//  return response.json()
+		});
 		await AsyncStorage.removeItem("data");
 		setData({});
 		navigation.navigate("Home");
@@ -45,16 +45,14 @@ export default function UpdateScreen({ navigation }) {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.btnstyle2}>
-				<TouchableHighlight onPress={goToLogout}>
-					<Text style={styles.btntextstylelogout}>LOGOUT</Text>
-				</TouchableHighlight>
-			</View>
 			<TouchableOpacity onPress={goToupdQ} style={styles.btnstyle}>
 				<Text style={styles.btntextstyle}>UPDATE QUEUE</Text>
 			</TouchableOpacity>
 			<TouchableOpacity onPress={goToupdP} style={styles.btnstyle1}>
 				<Text style={styles.btntextstyle}>UPDATE VOTES POLLED</Text>
+			</TouchableOpacity>
+			<TouchableOpacity onPress={goToLogout} style={styles.btnstyle2}>
+				<Text style={styles.btntextstyle}>LOGOUT</Text>
 			</TouchableOpacity>
 		</View>
 	);
@@ -85,7 +83,7 @@ const styles = StyleSheet.create({
 		paddingBottom: 20,
 		borderRadius: 5,
 
-		bottom: 10,
+		bottom: 40,
 	},
 	btnstyle2: {
 		backgroundColor: "#E40078",

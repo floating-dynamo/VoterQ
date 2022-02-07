@@ -16,7 +16,7 @@ import {
 import Boothcomnew from "../components/Boothcomnew";
 import Alert from "react-native";
 import Accom from "../components/Accom";
-import QueueScreen from "./QueueScreen";
+import QueueScreen from "./QueueScreen.js";
 import { LogContext } from "../App";
 import { BOOTHS } from "../components/defs";
 import { SERVER } from "../components/defs";
@@ -24,7 +24,7 @@ import { CONSTITUENCY, POLLTIME } from "../components/defs";
 import { TextInput } from "react-native-gesture-handler";
 import { Dropdown } from "react-native-element-dropdown";
 
-export default function App({ navigation }) {
+export default function UpdatePollPer({ navigation }) {
 	const [boothnum, setBoothnum] = useState();
 	const { data, setData } = useContext(LogContext);
 	const [pollTime, setPollTime] = useState(0);
@@ -42,7 +42,7 @@ export default function App({ navigation }) {
 		var d = new Date();
 		let chosen_time = 0;
 		let pollt = d.getHours();
-		pollt += 1; // WHY IS THIS + 1
+		//pollt = 1; // WHY IS THIS + 1
 		if (pollt < 9) {
 			chosen_time = 0;
 		}
@@ -103,7 +103,7 @@ export default function App({ navigation }) {
 					//    setHasError(false);
 					//    setErrorMessage("");
 
-					navigation.push("Home");
+					navigation.navigate("Home");
 					// setLogged(true);
 					//  window.location.reload();
 					// return data
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
 		bottom: -40,
 	},
 	inputlabel: {
-		fontFamily: "Poppins_400Regular",
+		fontFamily: "Poppins_500Medium",
 		fontSize: 22,
 		textAlign: "center",
 	},
