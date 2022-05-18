@@ -8,7 +8,6 @@ import UpdateQueueScreen from "../screens/UpdateQueueScreen";
 import FlashScreen from "../screens/FlashScreen";
 import { useState } from "react";
 import UpdatePollPer from "../screens/UpdatePollPer";
-//import MessageSCR from "../screens/MessageSCR"
 const screens = {
 	Flash: {
 		screen: FlashScreen,
@@ -32,9 +31,6 @@ const screens = {
 	UpdateP: {
 		screen: UpdatePollPer,
 	},
-	/* MessageS: {
-    screen: MessageSCR,
-  },*/
 };
 
 const UserHomeStack = createStackNavigator(screens, {

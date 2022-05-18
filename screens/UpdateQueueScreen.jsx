@@ -14,6 +14,8 @@ import {
 	Poppins_800ExtraBold,
 	Poppins_500Medium,
 } from "@expo-google-fonts/poppins";
+import Boothcom from "../components/Boothcom";
+
 import Boothcomnew from "../components/Boothcomnew";
 import Alert from "react-native";
 import Accom from "../components/Accom";
@@ -26,15 +28,14 @@ import { CONSTITUENCY } from "../components/defs";
 export default function UpdateQueueScreen({ navigation }) {
 	const [boothnum, setBoothnum] = useState();
 	const { data, setData } = useContext(LogContext);
-
-	let ac = data.acnum;
+	const [ac, setAc] = useState(data.acnum);
+	let isstaff = data.is_staff;
 
 	let pblist = [];
 	for (let i = 0; i < data.poll_booth_list.length; i++) {
 		pblist.push(BOOTHS[ac - 1][data.poll_booth_list[i] - 1]);
 	}
 	const [numOfPpl, setNumOfPpl] = useState(0);
-	//const [isLoading,setIsLoading] =useState(true);
 
 	let [fontsLoaded, error] = useFonts({
 		Poppins_700Bold,
@@ -48,16 +49,16 @@ export default function UpdateQueueScreen({ navigation }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		//if(loginId!==null)
-		//  {
+
 		const url = SERVER + "myq/api/auth/qup/";
 		const Token = "Token " + data.token;
-		// console.log(username)
-		// console.log(passwword)
-		//console.log(url)
+		let boothn;
+		if (pblist.length == 1) boothn = pblist[0].value;
+		else boothn = boothnum;
+
 		fetch(url, {
 			method: "POST",
-			body: JSON.stringify({ acnum: ac, boothnum: boothnum, count: numOfPpl }),
+			body: JSON.stringify({ acnum: ac, boothnum: boothn, count: numOfPpl }),
 			headers: { "Content-Type": "application/json", Authorization: Token },
 		})
 			.then(function (response) {
@@ -65,60 +66,55 @@ export default function UpdateQueueScreen({ navigation }) {
 			})
 			.then(async (data1) => {
 				if (data1.status_code == 200) {
-					//await AsyncStorage.setItem("data", JSON.stringify(data));
-
-					//const st={'logged' : true };
-					//await AsyncStorage.setItem("logged", JSON.stringify(st));
-					// setData(data);
-					//    setHasError(false);
-					//    setErrorMessage("");
-
 					navigation.navigate("Home");
-					// setLogged(true);
-					//  window.location.reload();
-					// return data
 				}
-				/* else   if (data.status_code===500)
-                  {
-           //       setHasError(true);
-//   setErrorMessage(data.error.error[0]);
-                  e.target.reset();
-                  //setUserName('');
-                }
-                else*/
-				//
 			});
 	};
 	return (
 		<View style={styles.container}>
-			<View style={{ marginBottom: 55, flex: 0.7 }}>
-				<Text
-					style={{
-						textAlign: "center",
-						fontFamily: "Poppins_500Medium",
-						fontSize: 20,
-						borderBottomWidth: 2,
-						borderBottomColor: "#5e17eb",
-						marginBottom: 10,
-						paddingBottom: 10,
-					}}
-				>
-					Your Assembly Constituency is {"\n"}
-					<Text style={{ fontFamily: "Poppins_800ExtraBold" }}>
-						{CONSTITUENCY[ac - 1].label}
+			{isstaff == 1 ? (
+				<View>
+					<Text style={styles.actextstyle}>Select Assembly Constituency</Text>
+					<Accom setAc={setAc} />
+					<Text style={styles.pbtextstyle}>Select Polling Booth</Text>
+					<Boothcom ac={ac} setBoothnum={setBoothnum} />
+				</View>
+			) : (
+				<View style={{ marginBottom: 55, flex: 0.7 }}>
+					<Text
+						style={{
+							textAlign: "center",
+							fontFamily: "Poppins_500Medium",
+							fontSize: 20,
+							borderBottomWidth: 2,
+							borderBottomColor: "#5e17eb",
+							marginBottom: 10,
+							paddingBottom: 10,
+						}}
+					>
+						Your Assembly Constituency is {"\n"}
+						<Text style={{ fontFamily: "Poppins_800ExtraBold" }}>
+							{CONSTITUENCY[ac - 1].label}
+						</Text>
 					</Text>
-				</Text>
-				<Text
-					style={{
-						textAlign: "center",
-						fontFamily: "Poppins_500Medium",
-						fontSize: 20,
-					}}
-				>
-					Your Polling Booth is {"\n"}
-					<Boothcomnew pblist={pblist} setBoothnum={setBoothnum} />
-				</Text>
-			</View>
+					<Text
+						style={{
+							textAlign: "center",
+							fontFamily: "Poppins_500Medium",
+							fontSize: 20,
+						}}
+					>
+						Your Polling Booth is {"\n"}
+						{pblist.length == 1 ? (
+							<Text style={{ fontFamily: "Poppins_800ExtraBold" }}>
+								{pblist[0].label}
+							</Text>
+						) : (
+							<Boothcomnew pblist={pblist} setBoothnum={setBoothnum} />
+						)}
+					</Text>
+				</View>
+			)}
 			<View style={styles.inputbox}>
 				<Text style={styles.inputlabel}>
 					Enter number of people currently in the Queue
@@ -153,7 +149,6 @@ const styles = StyleSheet.create({
 		paddingLeft: 35,
 		paddingRight: 35,
 		borderRadius: 5,
-		bottom: -40,
 	},
 	btntextstyle: {
 		color: "#fff",
@@ -162,8 +157,7 @@ const styles = StyleSheet.create({
 	},
 	inputbox: {
 		alignItems: "center",
-		marginBottom: 15,
-		bottom: -40,
+		marginBottom: 2,
 	},
 	inputlabel: {
 		fontFamily: "Poppins_500Medium",

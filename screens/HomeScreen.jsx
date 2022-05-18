@@ -2,14 +2,12 @@ import React, { useContext, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
-//import {useUser} from "../components/userContext";
 import {
 	useFonts,
 	Poppins_700Bold,
 	Poppins_400Regular,
 	Poppins_800ExtraBold,
 } from "@expo-google-fonts/poppins";
-//import get_logged_status from "../components/func"
 
 import { SecureStore } from "expo";
 import { LogContext } from "../App";
@@ -23,17 +21,14 @@ export default function HomeScreen({ navigation }) {
 		Poppins_800ExtraBold,
 	});
 
-	// output: sahdkfjaskdflas$%^&
 	if (!fontsLoaded) {
 		return null;
 	}
 
-	//Used to navigate from Home to Select Constituency Screen
 	function goToConst() {
 		navigation.push("CheckConst");
 	}
 
-	//Used to navigate from Home to Login Screen
 	function goToLogin() {
 		navigation.push("Login");
 	}
@@ -53,20 +48,22 @@ export default function HomeScreen({ navigation }) {
 
 			{Object.keys(data).length != 0 ? (
 				<TouchableOpacity onPress={goToUpdate} style={styles.loginbtnstyle}>
-					<Text style={styles.loginbtntext}>UPDATE </Text>
+					<Text style={styles.loginbtntext}>U </Text>
 				</TouchableOpacity>
 			) : (
 				<TouchableOpacity onPress={goToLogin} style={styles.loginbtnstyle}>
-					<Text style={styles.loginbtntext}>LOGIN </Text>
+					<Text style={styles.loginbtntext}>+ </Text>
 				</TouchableOpacity>
 			)}
 
 			<View style={styles.logotitle}>
 				<Text style={styles.title}>Voter Q</Text>
 				<Text style={styles.subtitle}>
-					Check the Queue at your Polling Booth
+					Check the Queue at your Polling Booth{"\n"}
+					by Clicking the Next button
 				</Text>
 			</View>
+
 			<TouchableOpacity onPress={goToConst} style={styles.btnstyle}>
 				<Text style={styles.btntext}>NEXT</Text>
 			</TouchableOpacity>
@@ -84,11 +81,6 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		padding: 25,
 		flexDirection: "row",
-	},
-	logoimagestyle: {
-		width: 80,
-		height: 110,
-		margin: 5,
 	},
 	ecglogoimagestyle: {
 		width: 140,
@@ -133,9 +125,9 @@ const styles = StyleSheet.create({
 		fontFamily: "Poppins_700Bold",
 	},
 	loginbtnstyle: {
-		backgroundColor: "#71C562",
-		paddingRight: 15,
-		paddingLeft: 15,
+		backgroundColor: "#5e17eb",
+		paddingRight: 20,
+		paddingLeft: 20,
 		paddingTop: 8,
 		paddingBottom: 8,
 		position: "absolute",
@@ -146,7 +138,7 @@ const styles = StyleSheet.create({
 	},
 	loginbtntext: {
 		color: "#fff",
-		fontSize: 18,
+		fontSize: 8,
 		fontWeight: "900",
 		fontFamily: "Poppins_700Bold",
 	},

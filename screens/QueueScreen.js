@@ -1,8 +1,6 @@
 import { Text, StyleSheet, View, Image, StatusBar } from "react-native";
 import React, { useState } from "react";
-//import MapView, { Marker } from "react-native-maps";
 import { Constants, MapView } from "expo";
-//import MapView from 'react-native-maps';
 import {
 	useFonts,
 	Poppins_700Bold,
@@ -23,10 +21,6 @@ export default function QueueScreen({
 	ac,
 	boothnum,
 }) {
-	//let pollper = votespolled/maxvotes
-	//DecimalFormat  df = new DecimalFormat("#.00");
-	// String pf = df.format(pollper);
-
 	let [fontsLoaded, error] = useFonts({
 		Poppins_700Bold,
 		Poppins_400Regular,

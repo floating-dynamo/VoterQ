@@ -14,6 +14,7 @@ import {
 	Poppins_500Medium,
 } from "@expo-google-fonts/poppins";
 import Boothcomnew from "../components/Boothcomnew";
+import Boothcom from "../components/Boothcom";
 import Alert from "react-native";
 import Accom from "../components/Accom";
 import QueueScreen from "./QueueScreen.js";
@@ -28,7 +29,8 @@ export default function UpdatePollPer({ navigation }) {
 	const [boothnum, setBoothnum] = useState();
 	const { data, setData } = useContext(LogContext);
 	const [pollTime, setPollTime] = useState(0);
-	let ac = data.acnum;
+	const [ac, setAc] = useState(data.acnum);
+	let isstaff = data.is_staff;
 
 	let pblist = [];
 	for (let i = 0; i < data.poll_booth_list.length; i++) {
@@ -73,18 +75,18 @@ export default function UpdatePollPer({ navigation }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		//if(loginId!==null)
-		//  {
+
 		const url = SERVER + "myq/api/auth/pup/";
 		const Token = "Token " + data.token;
-		// console.log(username)
-		// console.log(passwword)
-		//console.log(url)
+		let boothn;
+		if (pblist.length == 1) boothn = pblist[0].value;
+		else boothn = boothnum;
+
 		fetch(url, {
 			method: "POST",
 			body: JSON.stringify({
 				acnum: ac,
-				boothnum: boothnum,
+				boothnum: boothn,
 				count: numOfPpl,
 				encoded_time: POLLTIME[pollTime].value,
 			}),
@@ -95,61 +97,56 @@ export default function UpdatePollPer({ navigation }) {
 			})
 			.then(async (data1) => {
 				if (data1.status_code == 200) {
-					//await AsyncStorage.setItem("data", JSON.stringify(data));
-
-					//const st={'logged' : true };
-					//await AsyncStorage.setItem("logged", JSON.stringify(st));
-					// setData(data);
-					//    setHasError(false);
-					//    setErrorMessage("");
-
 					navigation.navigate("Home");
-					// setLogged(true);
-					//  window.location.reload();
-					// return data
 				}
-				/* else   if (data.status_code===500)
-                  {
-           //       setHasError(true);
-//   setErrorMessage(data.error.error[0]);
-                  e.target.reset();
-                  //setUserName('');
-                }
-                else*/
-				//
 			});
 	};
 
 	return (
 		<View style={styles.container}>
-			<View style={{ marginBottom: 55, flex: 0.7 }}>
-				<Text
-					style={{
-						textAlign: "center",
-						fontFamily: "Poppins_500Medium",
-						fontSize: 20,
-						borderBottomWidth: 2,
-						borderBottomColor: "#5e17eb",
-						marginBottom: 10,
-						paddingBottom: 10,
-					}}
-				>
-					Your Assembly Constituency is {"\n"}
-					<Text style={{ fontFamily: "Poppins_800ExtraBold" }}>
-						{CONSTITUENCY[ac - 1].label}
+			{isstaff == 1 ? (
+				<View>
+					<Text style={styles.actextstyle}>Select Assembly Constituency</Text>
+					<Accom setAc={setAc} />
+					<Text style={styles.pbtextstyle}>Select Polling Booth</Text>
+					<Boothcom ac={ac} setBoothnum={setBoothnum} />
+				</View>
+			) : (
+				<View style={{ marginBottom: 55, flex: 0.7 }}>
+					<Text
+						style={{
+							textAlign: "center",
+							fontFamily: "Poppins_500Medium",
+							fontSize: 20,
+							borderBottomWidth: 2,
+							borderBottomColor: "#5e17eb",
+							marginBottom: 10,
+							paddingBottom: 10,
+						}}
+					>
+						Your Assembly Constituency is {"\n"}
+						<Text style={{ fontFamily: "Poppins_800ExtraBold" }}>
+							{CONSTITUENCY[ac - 1].label}
+						</Text>
 					</Text>
-				</Text>
-				<Text
-					style={{
-						textAlign: "center",
-						fontFamily: "Poppins_500Medium",
-						fontSize: 20,
-					}}
-				>
-					Your Polling Booth is {"\n"}
-					<Boothcomnew pblist={pblist} setBoothnum={setBoothnum} />
-				</Text>
-			</View>
+					<Text
+						style={{
+							textAlign: "center",
+							fontFamily: "Poppins_500Medium",
+							fontSize: 20,
+						}}
+					>
+						Your Polling Booth is {"\n"}
+						{pblist.length == 1 ? (
+							<Text style={{ fontFamily: "Poppins_800ExtraBold" }}>
+								{pblist[0].label}
+							</Text>
+						) : (
+							<Boothcomnew pblist={pblist} setBoothnum={setBoothnum} />
+						)}
+					</Text>
+				</View>
+			)}
 			<View style={styles.inputbox}>
 				<Text style={styles.inputlabel}>
 					Enter number of votes as of{" "}
@@ -187,7 +184,6 @@ const styles = StyleSheet.create({
 		paddingLeft: 35,
 		paddingRight: 35,
 		borderRadius: 5,
-		bottom: -40,
 	},
 	btntextstyle: {
 		color: "#fff",
@@ -197,7 +193,6 @@ const styles = StyleSheet.create({
 	inputbox: {
 		alignItems: "center",
 		marginBottom: 15,
-		bottom: -40,
 	},
 	inputlabel: {
 		fontFamily: "Poppins_500Medium",

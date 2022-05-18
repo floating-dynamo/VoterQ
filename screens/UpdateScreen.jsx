@@ -9,7 +9,6 @@ import React, { useContext } from "react";
 import CheckConstiScreen from "./CheckConstiScreen";
 import { LogContext } from "../App";
 import { AsyncStorage } from "react-native";
-import { SERVER } from "../components/defs";
 export default function UpdateScreen({ navigation }) {
 	const { data, setData } = useContext(LogContext);
 	function goToupdQ() {
@@ -19,25 +18,6 @@ export default function UpdateScreen({ navigation }) {
 		navigation.navigate("UpdateP");
 	}
 	async function goToLogout() {
-		const url = SERVER + "myq/api/auth/logout/";
-		const Token = "Token " + data.token;
-		// console.log(username)
-		// console.log(passwword)
-		//console.log(url)
-		fetch(url, {
-			method: "POST",
-
-			headers: { "Content-Type": "application/json", Authorization: Token },
-		}).then(function (response) {
-			console.log("response", response);
-			if (!response.ok) {
-				throw Error();
-			}
-			//sessionStorage.setItem('token', '')
-			//sessionStorage.clear();
-
-			//  return response.json()
-		});
 		await AsyncStorage.removeItem("data");
 		setData({});
 		navigation.navigate("Home");
@@ -86,23 +66,19 @@ const styles = StyleSheet.create({
 		bottom: 40,
 	},
 	btnstyle2: {
-		backgroundColor: "#E40078",
-		paddingHorizontal: 15,
-		paddingVertical: 8,
+		backgroundColor: "#fff",
+		paddingRight: 30,
+		paddingLeft: 30,
+		paddingTop: 20,
+		paddingBottom: 20,
 		borderRadius: 5,
-		top: "-29%",
-		right: "-29%",
+
+		bottom: 10,
 	},
 	btntextstyle: {
 		textAlign: "center",
 		fontSize: 23,
 		color: "#5e17eb",
-		fontFamily: "Poppins_700Bold",
-	},
-	btntextstylelogout: {
-		textAlign: "center",
-		fontSize: 18,
-		color: "#fff",
 		fontFamily: "Poppins_700Bold",
 	},
 });

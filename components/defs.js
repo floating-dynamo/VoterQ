@@ -1,4 +1,4 @@
-export const SERVER = "http://210.212.162.134:8000/";
+export const SERVER = "https://voterqt.gec.ac.in/";
 
 export const POLLTIME = [
 	{ label: "No data yet", value: "0" },

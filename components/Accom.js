@@ -1,6 +1,4 @@
-// import DropDownPicker from 'react-native-dropdown-picker';
 import React, { useState } from "react";
-// import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -15,12 +13,6 @@ import { CONSTITUENCY } from "./defs";
 export default function Accom({ setAc }) {
 	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState(null);
-	/*	const data = [
-		{ label: "01 Mandrem", value: 1 },
-		{ label: "02 Pernem", value: 2 },
-		{ label: "03 Bicholim", value: 3 },
-		{ label: "04 Tivim", value: 4 },
-	];*/
 
 	let [fontsLoaded, error] = useFonts({
 		Poppins_700Bold,
@@ -61,7 +53,6 @@ export default function Accom({ setAc }) {
 					/>
 				)}
 			/>
-			{/* <Text> Value {value} </Text> */}
 		</View>
 	);
 }
