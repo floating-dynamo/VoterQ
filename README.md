@@ -11,4 +11,4 @@
 [appPreview]:https://drive.google.com/drive/folders/1DYuRL5xdSfy4LJakoeD7iO9y98DVmETO
 
 #### Home Screen
-![Screenshot_1644316444](https://user-images.githubusercontent.com/65811224/168945418-fb10e833-386a-4a0f-8464-c7394e867cae.png|width=100px)
+![Screenshot_1644316444](https://user-images.githubusercontent.com/65811224/168945418-fb10e833-386a-4a0f-8464-c7394e867cae.png|width="100")
